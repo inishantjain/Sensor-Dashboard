@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input onchange="onChange" type="date" name="" id="" />
+  </body>
+  <script>
+    const input = document.getElementsByTagName("input")[0];
+    input.addEventListener("change", onChange);
+    function onChange(e) {
+      console.log(e.target.value);
+      console.log(new Date(e.target.value).toISOString());
+    }
+    console.log("loaded script");
+  </script>
+</html>
