@@ -1,8 +1,7 @@
 ```js
-const { insertReading } = require("./functions");
 const fs = require("fs");
 const readline = require("readline");
-insertReading("2015-01-01 00:00:00", 19.0, 75.0);
+const { insertReading } = require("./config");
 
 async function loadToDB() {
   try {
@@ -12,8 +11,7 @@ async function loadToDB() {
 
     rl.on("line", async (line) => {
       const reading = line.split(/,/);
-      console.log(reading);
-      await insertReading(...reading);
+      await insertReading(reading[0], reading[1], reading[2]);
     });
 
     rl.on("close", () => {
@@ -23,7 +21,6 @@ async function loadToDB() {
     console.error(error);
   }
 }
-loadToDB();
 ```
 
 ```js
