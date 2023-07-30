@@ -1,6 +1,11 @@
-import styled from "styled-components";
-
-export const StyledLatestDataComponent = styled.div`
+import TemperatureCard from "./Cards/Temperature";
+import Humidity from "./Cards/Humidity";
+import Precipitation from "./Cards/Precipitation";
+import WindSpeed from "./Cards/WindSpeed";
+import { useEffect, useState } from "react";
+import { getLatestData } from "../../services/getData";
+import { styled } from "styled-components";
+const StyledLatestDataComponent = styled.div`
   border-radius: 0.5rem;
   padding: 1.5rem;
   background-color: #fff;
@@ -62,3 +67,26 @@ export const StyledLatestDataComponent = styled.div`
     }
   }
 `;
+
+export function LatestData() {
+  const [temperature, setTemperature] = useState(null);
+  useEffect(() => {
+    async function fetch() {
+      const res = await getLatestData();
+      console.log(res);
+      setTemperature(res.temperature);
+    }
+    fetch();
+  }, []);
+  return (
+    <StyledLatestDataComponent>
+      <h2>Latest Data</h2>
+      <div>
+        <TemperatureCard temperature={temperature} />
+        <Precipitation />
+        <Humidity />
+        <WindSpeed />
+      </div>
+    </StyledLatestDataComponent>
+  );
+}

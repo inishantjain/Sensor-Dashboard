@@ -12,8 +12,8 @@ import {
   // Tooltip,
   // Legend,
 } from "chart.js";
-import { getData } from "../services/getData";
-import { StyledChartContainer } from "../StyledComponents/ChartContainer.styles";
+import { getData } from "../../services/getData";
+import { StyledChartContainer } from "../../StyledComponents/ChartContainer.styles";
 
 ChartJS.register(
   CategoryScale,
@@ -33,15 +33,24 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Temperature",
+      text: "Temperature & Humidity",
     },
   },
   scales: {
     y: {
-      ticks: {
-        // forces step size to be 50 units
-        stepSize: 2,
-      },
+      // ticks: {
+      //   // forces step size to be 50 units
+      //   stepSize: 2,
+      // },
+    },
+    y1: {
+      position: "right",
+      // ticks: {
+      //   stepSize: 2,
+      // },
+      // grid: {
+      //   drawOnChartArea: false,
+      // },
     },
     x: {
       type: "timeseries",
@@ -52,7 +61,7 @@ function LineChart() {
   const [fetchedData, setFetchedData] = useState([]);
   useEffect(() => {
     (async () => {
-      const res = await getData("2020-01-01", "2020-01-01");
+      const res = await getData("2022-12-31", "2022-12-31");
       setFetchedData(res);
     })();
   }, []);
@@ -60,13 +69,27 @@ function LineChart() {
     labels: fetchedData.map((item) => item?.timestamp),
     datasets: [
       {
-        label: "Sales of the week",
+        label: "Temperature",
         data: fetchedData.map((item) => item?.temperature),
-        borderWidth: 1,
-        pointRadius: 1,
-        backgroundColor: "#369FFF",
-        borderColor: "#369FFF",
+        borderWidth: 3,
+        pointRadius: 3,
+        // backgroundColor: "#369FFF", //color of points
+        borderColor: "#369FFF", //color of line
         pointBorderWidth: 0,
+        yAxisID: "y",
+        tension: 0.3,
+        // pointBorderColor: "#369FFF",
+      },
+      {
+        label: "Humidity",
+        data: fetchedData.map((item) => item?.humidity),
+        borderWidth: 3,
+        pointRadius: 3,
+        // backgroundColor: "#8AC53E",
+        borderColor: "#8AC53E",
+        pointBorderWidth: 0,
+        yAxisID: "y1",
+        tension: 0.3,
         // pointBorderColor: "#369FFF",
       },
     ],

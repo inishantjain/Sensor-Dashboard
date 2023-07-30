@@ -59,15 +59,16 @@ SELECT * FROM readings;
 SELECT COUNT(id) FROM dht11;
 
 --@block
-TRUNCATE TABLE main;
+SELECT * FROM main
+            WHERE timestamp=(SELECT MAX(timestamp) FROM main)
 
 
 --@block
 SELECT timestamp, temperature, humidity FROM DHT11;
 
 --@block get data of a day
-SELECT * FROM DHT11
-WHERE DATE(timestamp) = '2015-01-01';
+SELECT * FROM main
+WHERE DATE(timestamp) = '2019-01-01';
 
 --@block get data of a specific hour for each day
 SELECT * FROM DHT11
@@ -93,5 +94,24 @@ WHERE id NOT IN (
 
 --@block
 SELECT CONVERT_TZ('2014-12-31 23:30:00', '+00:00', '+05:30') AS ist_timestamp;
+
+--@block
+SELECT
+  DATE_FORMAT(timestamp, '%M') AS month,
+  AVG(temperature) AS avg_temperature,
+  MIN(temperature) AS min_temperature,
+  MAX(temperature) AS max_temperature, 
+  AVG(humidity) AS avg_humidity,
+  MIN(humidity) AS min_humidity,
+  MAX(humidity) AS max_humidity, 
+  AVG(wind_speed) AS avg_wind_speed,
+  MIN(wind_speed) AS min_wind_speed,
+  MAX(wind_speed) AS max_wind_speed
+FROM
+  main
+WHERE
+  YEAR(timestamp) = 2019
+GROUP BY month;
+
 
 

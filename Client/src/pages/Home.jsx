@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
-import { StyledHome } from "../StyledComponents/Home.styles";
-import { StyledNavbar } from "../StyledComponents/Navbar.styles";
+import { useState } from "react";
+import styled from "styled-components";
 import Navbar from "../components/common/Navbar";
-import { LatestData } from "../components/Home/LatestData";
-import Sidebar from "../components/common/Sidebar";
-import LineChart from "../components/TemperatureLineChart";
+import { Outlet } from "react-router-dom";
+const StyledHome = styled.div`
+  margin: 1rem 1.3rem 0 1rem;
+  gap: 1rem;
+  display: grid;
+  align-items: start;
+`;
 // import "";
 function Home() {
   const [lineData, setLineData] = useState();
@@ -14,9 +17,9 @@ function Home() {
   return (
     <StyledHome>
       <Navbar />
-      <Sidebar />
-      <LatestData />
-      <LineChart />
+      <div>
+      <Outlet />
+      </div>
     </StyledHome>
   );
 }
