@@ -1,7 +1,6 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-function Humidity() {
-  const value = 56;
+function Humidity({ humidity: value }) {
   return (
     <div
       className="parameter-card"

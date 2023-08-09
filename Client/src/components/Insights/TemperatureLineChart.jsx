@@ -70,6 +70,7 @@ function LineChart() {
     datasets: [
       {
         label: "Temperature",
+        
         data: fetchedData.map((item) => item?.temperature),
         borderWidth: 3,
         pointRadius: 3,

@@ -6,7 +6,7 @@ const app = express();
 require("dotenv").config();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); 
 
 app.get("/", (req, res) => {
   return res.status(200).json({

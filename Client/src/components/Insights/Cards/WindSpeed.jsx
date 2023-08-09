@@ -1,79 +1,48 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import GaugeComponent from 'react-gauge-component'
 
-function WindSpeed() {
-  const value = 40; // km /hr
+
+function WindSpeed({ wind_speed: value }) {
   return (
     <div
-      className="parameter-card"
+      className=""
       style={{
-        background: "#FFD143",
+        background: "#3D246C",
+        borderRadius: "1rem",
+        padding: "0.5rem",
         boxShadow: "0px 10px 30px 0px rgba(255, 209, 67, 0.40)",
+        gridRow:2,
       }}
     >
-      <div>
-        <h3>Wind Speed</h3>
-        <div style={{ width: 65, height: 65, fontWeight: "700" }}>
-          <CircularProgressbar
-            // minValue={-40}
-            counterClockwise="true"
+<h3 style={{padding:"1rem",color:"white",
+        fontFamily:"manrope",}}>Wind Speed</h3>
+        <GaugeComponent
             value={value}
-            text={`${value} Km/hr`}
-            circleRatio={1} //arc length wrt circle
-            styles={buildStyles({
-              // Rotation of path and trail, in number of turns (0-1)
-              rotation: 0,
-              /*Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'*/
-              // strokeLinecap: "butt",
-              /* Text size */
-              textSize: "1.2rem",
-
-              // How long animation takes to go from one percentage to another, in seconds
-              pathTransitionDuration: 0.5,
-              /*Can specify path transition in more detail, or remove it entirely*/
-              // pathTransition: 'none',
-              /* Colors*/
-              pathColor: `#FFF`,
-              textColor: "#FFF",
-              trailColor: "#FFC000",
-              // backgroundColor: "#3e98c7", //bg not displaying
-            })}
+            type="radial"
+            labels={{
+              markLabel: {
+                type: "outer",
+                marks: [
+                  { value: 20 },
+                  { value: 40 },
+                  { value: 60 },
+                  { value: 80 },
+                  { value: 100 }
+                ]
+              }
+            }}
+            arc={{
+              colorArray: ['#5BE12C','#EA4228'],
+              subArcs: [{limit: 10}, {limit: 30}, {}, {}, {}],
+              padding: 0.02,
+              width: 0.3
+            }}
+            pointer={{
+              elastic: true,
+              animationDelay: 0
+            }}
           />
-        </div>
-      </div>
-      <img style={{ height: "100%" }} src="/windSpeed.svg" />
 
-      <svg
-        className="tlintersectIcon"
-        width="81"
-        height="41"
-        viewBox="0 0 81 41"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          opacity="0.5"
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M80.6191 0C79.5986 6.9096 73.3452 26.3399 47.5836 35.1535C22.5889 43.7047 6.12314 40.7638 0.000186172 38L0.00017709 20C0.00017709 19.9941 0.000184718 19.9882 0.000184718 19.9823C0.00972057 8.94477 8.96039 6.78666e-06 20.0002 5.7411e-06L80.6191 0Z"
-          fill="#FFC000"
-        />
-      </svg>
-      <svg
-        className="brintersectIcon"
-        width="136"
-        height="80"
-        viewBox="0 0 136 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          opacity="0.5"
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M0.308594 80H116.001C127.038 80 135.987 71.0592 136.001 60.025C136.001 60.0167 136.001 60.0083 136.001 60L136.001 0C135.232 11.6667 121.97 35 75.0778 35C28.1855 35 5.69321 65 0.308594 80Z"
-          fill="#FFC000"
-        />
-      </svg>
     </div>
   );
 }

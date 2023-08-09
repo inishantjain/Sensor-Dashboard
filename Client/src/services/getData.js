@@ -3,12 +3,13 @@ const BASE = import.meta.env.VITE_API_URL;
 // const BASE = "http://127.0.0.1:3000/api/endpoints";
 // axios.defaults.baseURL = BASE;
 
-export const getData = async (from, to) => {
+export const getData = async (from, to,dayAverage =false) => {
   let res = [];
   try {
     const endPoint = new URL("duration", BASE);
     endPoint.searchParams.set("from", from);
     endPoint.searchParams.set("to", to);
+    endPoint.searchParams.set("dayAverage", dayAverage);
     const response = await axios.get(endPoint);
     // console.log("API Response", response);
     res = response.data?.data;

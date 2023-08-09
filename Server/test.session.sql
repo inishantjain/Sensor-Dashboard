@@ -80,6 +80,15 @@ WHERE DATE(timestamp) BETWEEN '2016-01-15' AND '2016-01-17'
 GROUP BY DATE(timestamp);
 
 --@block
+SELECT DATE(timestamp),
+      AVG(temperature),
+      AVG(humidity)
+      FROM main
+      WHERE DATE(timestamp) BETWEEN "2022-01-01" AND "2022-01-02"
+      GROUP BY DATE(timestamp)
+      ORDER BY DATE(timestamp);
+
+--@block
 DELETE FROM DHT11 
 WHERE id NOT IN (
   SELECT id FROM (

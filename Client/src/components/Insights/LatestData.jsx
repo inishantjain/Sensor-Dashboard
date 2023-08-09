@@ -2,20 +2,24 @@ import TemperatureCard from "./Cards/Temperature";
 import Humidity from "./Cards/Humidity";
 import Precipitation from "./Cards/Precipitation";
 import WindSpeed from "./Cards/WindSpeed";
+import Pressure from "./Cards/Pressure";
 import { useEffect, useState } from "react";
 import { getLatestData } from "../../services/getData";
 import { styled } from "styled-components";
+import GaugeComponent from "react-gauge-component";
 const StyledLatestDataComponent = styled.div`
   border-radius: 0.5rem;
   padding: 1.5rem;
   background-color: #fff;
-  width: fit-content; //!!
+  grid-row:span 2;
   & > h2 {
     margin: 0 0 1.5rem;
   }
   & > div {
     display: grid;
-    grid-template-columns: repeat(2, minmax(250px, 300px));
+    justify-content:center;
+    grid-template-columns: repeat(2, minmax(250px, 500px));
+    grid-auto-flow: row;
     gap: 1.8rem;
   }
 
@@ -69,12 +73,12 @@ const StyledLatestDataComponent = styled.div`
 `;
 
 export function LatestData() {
-  const [temperature, setTemperature] = useState(null);
+  const [latestData, setLatestData] = useState(null);
   useEffect(() => {
     async function fetch() {
       const res = await getLatestData();
       console.log(res);
-      setTemperature(res.temperature);
+      setLatestData(res);
     }
     fetch();
   }, []);
@@ -82,10 +86,12 @@ export function LatestData() {
     <StyledLatestDataComponent>
       <h2>Latest Data</h2>
       <div>
-        <TemperatureCard temperature={temperature} />
-        <Precipitation />
-        <Humidity />
-        <WindSpeed />
+        <TemperatureCard temperature={latestData?.temperature} />
+        <Precipitation precipitation={latestData?.precipitation} />
+        <WindSpeed wind_speed={latestData?.wind_speed} />
+        <Pressure pressure={latestData?.atm_pressure} />
+        <Humidity humidity={latestData?.humidity} />
+
       </div>
     </StyledLatestDataComponent>
   );

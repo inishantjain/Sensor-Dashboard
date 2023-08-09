@@ -22,7 +22,6 @@ router.get(
   "/duration",
   asyncWrapper(async (req, res) => {
     const { from, to } = req.query;
-
     if (!isValidDate(from) || !isValidDate(to))
       throw new CustomAPIError(
         "Please Provide valid date in format of YYYY-MM-DD",
@@ -30,11 +29,17 @@ router.get(
       );
     // console.log(from, to);
     if (!from || !to) throw new Error();
-    const [result] = await pool.query(
+    
+    let data;
+    data = await pool.query(
       `SELECT * FROM main
             WHERE DATE(timestamp) BETWEEN ? AND ?`,
       [from, to]
     );
+
+    const [result] = data;
+
+    console.log(result);
     res.status(200).json({
       data: result,
     });

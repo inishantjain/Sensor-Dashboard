@@ -1,7 +1,6 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-function Precipitation() {
-  const value = 5;
+function Precipitation({ precipitation: value }) {
   return (
     <div
       className="parameter-card"
