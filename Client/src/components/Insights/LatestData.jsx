@@ -6,18 +6,17 @@ import Pressure from "./Cards/Pressure";
 import { useEffect, useState } from "react";
 import { getLatestData } from "../../services/getData";
 import { styled } from "styled-components";
-import GaugeComponent from "react-gauge-component";
 const StyledLatestDataComponent = styled.div`
   border-radius: 0.5rem;
   padding: 1.5rem;
   background-color: #fff;
-  grid-row:span 2;
+  grid-row: span 2;
   & > h2 {
     margin: 0 0 1.5rem;
   }
   & > div {
     display: grid;
-    justify-content:center;
+    justify-content: center;
     grid-template-columns: repeat(2, minmax(250px, 500px));
     grid-auto-flow: row;
     gap: 1.8rem;
@@ -91,7 +90,6 @@ export function LatestData() {
         <WindSpeed wind_speed={latestData?.wind_speed} />
         <Pressure pressure={latestData?.atm_pressure} />
         <Humidity humidity={latestData?.humidity} />
-
       </div>
     </StyledLatestDataComponent>
   );

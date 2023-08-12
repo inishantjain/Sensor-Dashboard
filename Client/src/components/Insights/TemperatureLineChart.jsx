@@ -1,3 +1,10 @@
+import styled from "styled-components";
+
+const StyledChartContainer = styled.div`
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #fff;
+`;
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
@@ -13,7 +20,6 @@ import {
   // Legend,
 } from "chart.js";
 import { getData } from "../../services/getData";
-import { StyledChartContainer } from "../../StyledComponents/ChartContainer.styles";
 
 ChartJS.register(
   CategoryScale,
@@ -37,12 +43,7 @@ export const options = {
     },
   },
   scales: {
-    y: {
-      // ticks: {
-      //   // forces step size to be 50 units
-      //   stepSize: 2,
-      // },
-    },
+    y: {},
     y1: {
       position: "right",
       // ticks: {
@@ -70,7 +71,7 @@ function LineChart() {
     datasets: [
       {
         label: "Temperature",
-        
+
         data: fetchedData.map((item) => item?.temperature),
         borderWidth: 3,
         pointRadius: 3,
@@ -86,12 +87,10 @@ function LineChart() {
         data: fetchedData.map((item) => item?.humidity),
         borderWidth: 3,
         pointRadius: 3,
-        // backgroundColor: "#8AC53E",
         borderColor: "#8AC53E",
         pointBorderWidth: 0,
         yAxisID: "y1",
         tension: 0.3,
-        // pointBorderColor: "#369FFF",
       },
     ],
   };

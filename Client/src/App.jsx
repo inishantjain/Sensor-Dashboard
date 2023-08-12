@@ -5,14 +5,12 @@ import Dashboard from "./components/Dashboard.jsx/Dashboard";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route index element={<Insights />} />
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />}>
+        <Route index element={<Insights />} />
+        <Route path="/dashboard" element={<Dashboard />}></Route>
+      </Route>
+    </Routes>
   );
 }
 
